@@ -19,6 +19,9 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   mode: 'development',
   entry: entries,
+  watchOptions: {
+    poll: true,
+  },
   output: {
     path: path.resolve(__dirname, '_site/assets'),
     publicPath: '/',
