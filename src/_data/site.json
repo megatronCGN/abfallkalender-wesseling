@@ -1,8 +1,8 @@
 {
-  "site_name": "Starter",
-  "title": "Eleventy Starter Boilerplate",
-  "description": "Starter code for your 11ty blog Boilerplate",
-  "url": "https://example.com",
-  "locale": "en",
+  "site_name": "abfallkalender-wesseling.de",
+  "title": "Abfallkalender Wesseling",
+  "description": "Bring die Tonne raus!",
+  "url": "https://abfallkalender-wesseling.de",
+  "locale": "de",
   "author": "Anonymous"
 }
