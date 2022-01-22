@@ -1,18 +1,37 @@
-const heute = new Date();
-const morgen = new Date(heute);
-morgen.setDate(morgen.getDate() + 1);
+const dateFns = require('date-fns');
+const localeDe = require('date-fns/locale/de');
 
-const dd = (date) => String(date.getDate()).padStart(2, '0');
-const getTagHeute = (int) => int ? parseInt(dd(heute)) : tagHeute;
-const getTagMorgen = (int) => int ? parseInt(dd(morgen)) : tagMorgen;
-const queryTagHeute = getTagHeute(true) - 1;
-const queryTagMorgen = getTagMorgen(true) - 1;
-const monat = () => String(heute.getMonth()).padStart(2, '0');
+class queryDates {
+  constructor(date) {
+    this.date = date;
+    this.heute = this.date;
+    this.morgen = new Date(this.heute);
+    this.morgen.setDate(this.morgen.getDate() + 1);
+    this.format = dateFns.format;
+    this.locale = localeDe;
+  }
+
+  formatDate(date, format = 'd. MMMM yyyy') {
+    return this.format(date, format, { locale: this.locale });
+  }
+
+  getDay(date = this.date) {
+    return parseInt(String(date.getDate()).padStart(2, '0'), 10);
+  }
+
+  tagHeute() {
+    return this.getDay(this.heute) - 1;
+  }
+
+  tagMorgen() {
+    return this.getDay(this.morgen) - 1;
+  }
+
+  dieserMonat() {
+    return String(this.heute.getMonth()).padStart(2, '0');
+  }
+}
 
 module.exports = {
-  heute,
-  morgen,
-  monat,
-  queryTagHeute,
-  queryTagMorgen,
+  queryDates,
 };
