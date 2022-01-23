@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const entries = glob.sync(path.resolve(__dirname, 'src/assets/images/posts/*.{png,gif,jpg,jpeg}'));
 entries.push(path.resolve(__dirname, 'src/assets/styles/main.css'));
+entries.push(path.resolve(__dirname, 'src/assets/scripts/_scripts.js'));
 
 // TODO: Remove if the blog does not need syntax highlight
 entries.push(path.resolve(__dirname, 'src/assets/styles/prism-atom-dark.css'));
@@ -76,6 +77,16 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
     ],
   },
