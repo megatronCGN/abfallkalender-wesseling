@@ -28,7 +28,7 @@ class queryDates {
   }
 
   dieserMonat() {
-    return String(this.heute.getMonth()).padStart(2, '0');
+    return this.heute.getMonth();
   }
 }
 

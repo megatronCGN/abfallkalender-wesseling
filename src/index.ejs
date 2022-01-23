@@ -5,11 +5,12 @@ eleventyComputed:
 ---
 
 <% const queryDates = new datum.queryDates(new Date()) %>
+<% const abfuhrenDesAktuellenMonats = kalenderQuery.abfuhrDesAktuellenMonats(queryDates.dieserMonat()).abfuhren %>
 
 <div>
   <h2 class="text-xl font-bold">Heute, <%= queryDates.formatDate(queryDates.heute) %></h2>
   <% let abfuhrenHeute = [] %>
-  <% kalenderQuery.abfuhrDesAktuellenMonats(queryDates.dieserMonat()).forEach(function(abfuhr) { %>
+  <% abfuhrenDesAktuellenMonats.forEach(function(abfuhr) { %>
     <% let bezirkeHeute = kalenderQuery.abfuhrbezirkeAbfuhrAnTag(abfuhr, queryDates.tagHeute()) %>
     <% if (bezirkeHeute){ %>
       <% let obj = {} %>
@@ -17,6 +18,10 @@ eleventyComputed:
       <% abfuhrenHeute.push(obj) %>
     <% } %>
   <% }); %>
+
+  <%# let abfuhrenMap = Object.entries(function (entry){ %>
+
+  <%# })%>
 
   <% if (abfuhrenHeute.length > 0){ %>
     <% abfuhrenHeute.forEach(function (abfuhr) { %>
@@ -30,7 +35,7 @@ eleventyComputed:
 <div class="mt-2.5">
   <h2 class="text-xl font-bold">Morgen, <%= queryDates.formatDate(queryDates.morgen) %></h2>
   <% let abfuhrenMorgen = [] %>
-  <% kalenderQuery.abfuhrDesAktuellenMonats(queryDates.dieserMonat()).forEach(function(abfuhr) { %>
+  <% abfuhrenDesAktuellenMonats.forEach(function(abfuhr) { %>
     <% let bezirkeMorgen = kalenderQuery.abfuhrbezirkeAbfuhrAnTag(abfuhr, queryDates.tagMorgen()) %>
     <% if (bezirkeMorgen){ %>
       <% let obj = {} %>

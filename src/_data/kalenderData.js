@@ -109,7 +109,7 @@ const data = {
   'Schadstoffe (Term. s. Seite 7)/11': [null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'A', null, 'B', null, null, null, null, null, null, null, '8. Weihnachtstag', '9. Weihnachtstag', null, null, null, null, null],
 };
 const monatMap = {
-  '00': '/0',
+  0: '/0',
 };
 const bezirkMap = {
   1: 'Bezirk 1',

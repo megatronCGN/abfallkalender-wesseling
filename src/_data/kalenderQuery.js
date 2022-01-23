@@ -2,12 +2,15 @@ const data = require('./kalenderData');
 
 module.exports = () => {
   function abfuhrDesAktuellenMonats(monat) {
-    const abfuhren = Object.keys(data.data).filter((abfuhr) => abfuhr.indexOf(data.monatMap[monat]) > -1);
+    const abfuhren = Object.keys(data.data)
+      .filter((abfuhr) => abfuhr.indexOf(data.monatMap[monat]) > -1);
 
     // Edge Case: Nur Januar werden Weihnachtsbäume abgeholt
     if (monat === '00') abfuhren.push('Weihnachtsbäume');
 
-    return abfuhren;
+    return {
+      abfuhren,
+    };
   }
 
   function abfuhrbezirkeAbfuhrAnTag(abfuhr, tag, seperator = '+') {
