@@ -32,6 +32,6 @@ export class queryDates {
   }
 
   dieserMonat() {
-    return this.heute.getMonth();
+    return this.date.getMonth();
   }
 }
