@@ -1,18 +1,22 @@
-const dateFns = require('date-fns');
-const localeDe = require('date-fns/locale/de');
+import { format } from 'date-fns';
+import { de } from 'date-fns/locale';
 
-class queryDates {
+export class queryDates {
   constructor(date) {
-    this.date = date;
+    this.date = date || new Date();
     this.heute = this.date;
     this.morgen = new Date(this.heute);
     this.morgen.setDate(this.morgen.getDate() + 1);
-    this.format = dateFns.format;
-    this.locale = localeDe;
+    this.format = format;
+    this.locale = de;
   }
 
-  formatDate(date, format = 'd. MMMM yyyy') {
-    return this.format(date, format, { locale: this.locale });
+  formatDate(date, dateFormat = 'd. MMMM yyyy') {
+    return this.format(date, dateFormat, { locale: this.locale });
+  }
+
+  newDateFromDayAndMonth(day, month) {
+    return new Date(this.date.getFullYear(), month, day);
   }
 
   getDay(date = this.date) {
@@ -31,7 +35,3 @@ class queryDates {
     return this.heute.getMonth();
   }
 }
-
-module.exports = {
-  queryDates,
-};
