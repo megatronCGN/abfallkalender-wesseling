@@ -8,9 +8,6 @@ const entries = glob.sync(path.resolve(__dirname, 'src/assets/images/posts/*.{pn
 entries.push(path.resolve(__dirname, 'src/assets/styles/main.css'));
 entries.push(path.resolve(__dirname, 'src/assets/scripts/_scripts.js'));
 
-// TODO: Remove if the blog does not need syntax highlight
-entries.push(path.resolve(__dirname, 'src/assets/styles/prism-atom-dark.css'));
-
 let cssFileName = 'styles/[name].css';
 
 if (process.env.NODE_ENV === 'production') {
