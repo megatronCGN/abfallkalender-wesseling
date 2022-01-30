@@ -40,6 +40,30 @@ module.exports = {
           800: '#2d3748',
           900: '#1a202c',
         },
+        'schwarze-tonne': {
+          400: '#d6d6d6',
+        },
+        'bio-tonne': {
+          400: '#bc905c',
+        },
+        'blaue-tonne': {
+          400: '#8dc4ef',
+        },
+        'gelbe-tonne': {
+          400: '#f7f410',
+        },
+        sperrgut: {
+          400: '#d2709e',
+        },
+        gruenschnitt: {
+          400: '#94c43a',
+        },
+        elektro: {
+          400: '#fff',
+        },
+        schadstoffe: {
+          400: '#be0027',
+        },
       },
     },
   },
