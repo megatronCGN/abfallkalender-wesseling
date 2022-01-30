@@ -4,51 +4,28 @@ eleventyComputed:
   title: '<%= site.title %>'
 ---
 
-<% const queryDates = new datum.queryDates(new Date()) %>
-<% const abfuhrenDesAktuellenMonats = kalenderQuery.abfuhrDesAktuellenMonats(queryDates.dieserMonat()).abfuhren %>
-
-<div>
-  <h2 class="text-xl font-bold">Heute, <%= queryDates.formatDate(queryDates.heute) %></h2>
-  <% let abfuhrenHeute = [] %>
-  <% abfuhrenDesAktuellenMonats.forEach(function(abfuhr) { %>
-    <% let bezirkeHeute = kalenderQuery.abfuhrbezirkeAbfuhrAnTag(abfuhr, queryDates.tagHeute()) %>
-    <% if (bezirkeHeute){ %>
-      <% let obj = {} %>
-      <% obj[abfuhr] = bezirkeHeute %>
-      <% abfuhrenHeute.push(obj) %>
-    <% } %>
-  <% }); %>
-
-  <%# let abfuhrenMap = Object.entries(function (entry){ %>
-
-  <%# })%>
-
-  <% if (abfuhrenHeute.length > 0){ %>
-    <% abfuhrenHeute.forEach(function (abfuhr) { %>
-      <%= Object.keys(abfuhr) %>:<%= Object.values(abfuhr) %>
-    <% }) %>
-  <% } else { %>
-    Keine Abfuhren
-  <% } %>
-</div>
-
-<div class="mt-2.5">
-  <h2 class="text-xl font-bold">Morgen, <%= queryDates.formatDate(queryDates.morgen) %></h2>
-  <% let abfuhrenMorgen = [] %>
-  <% abfuhrenDesAktuellenMonats.forEach(function(abfuhr) { %>
-    <% let bezirkeMorgen = kalenderQuery.abfuhrbezirkeAbfuhrAnTag(abfuhr, queryDates.tagMorgen()) %>
-    <% if (bezirkeMorgen){ %>
-      <% let obj = {} %>
-      <% obj[abfuhr] = bezirkeMorgen %>
-      <% abfuhrenMorgen.push(obj) %>
-    <% } %>
-  <% }); %>
-
-  <% if (abfuhrenMorgen.length > 0){ %>
-    <% abfuhrenMorgen.forEach(function (abfuhr) { %>
-      Bezirk(e) <%= Object.values(abfuhr) %>: <%= Object.keys(abfuhr) %>:
-    <% }) %>
-  <% } else { %>
-    Keine Abfuhren
-  <% } %>
+<div x-data="{
+    kalenderData: kalender.cleanKalender(),
+    abfuhrTypMap: kalender.abfuhrTypMap,
+    queryDates: new queryDates(),
+  }">
+  <h2>Abfuhren nach Typ</h2>
+  <template x-for="[abfuhrTyp, abfuhrTage] in Object.entries(kalenderData[queryDates.dieserMonat()])">
+    <div class="p-5 border-2 border-r-2" :class="'border-' + abfuhrTypMap[abfuhrTyp] + '-400'">
+        <h3 x-text="abfuhrTyp"></h3>
+          <template x-for="abfuhr in abfuhrTage">
+            <div>
+              <template x-for="[tag, bezirke] in Object.entries(abfuhr)">
+                <div>
+                  <span x-text="queryDates.formatDate(queryDates.newDateFromDayAndMonth(tag, queryDates.dieserMonat()), 'dd.MM.')"></span>
+                  <span x-text="bezirke.length > 1 ? 'Bezirke: ' : 'Bezirk: '"></span>
+                  <template x-for="bezirk in bezirke">
+                    <span x-text="bezirk"></span>
+                  </template>
+                </div>
+              </template>
+            </div>
+          </template>
+    </div>
+  </template>
 </div>
