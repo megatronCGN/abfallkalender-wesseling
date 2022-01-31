@@ -20,7 +20,7 @@ const kalender = {
     "Schadstoffe (Term. s. Seite 7)/1": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "A", null, "B", null, "Rosenmontag", null, null, null]
   },
   "2": {
-    "Restabfall/2": [4, null, 2, null, null, null, null, 3, null, 1, null, null, null, null, 4, null, 2, null, null, null, null, 3, null, 1, null, null, null, null, 4, null, 2],
+    "Restabfall/2": ["4", null, "2", null, null, null, null, "3", null, "1", null, null, null, null, "4", null, "2", null, null, null, null, "3", null, "1", null, null, null, null, "4", null, "2"],
     "Bio-Tonne/2": [null, null, null, null, null, null, "1+4", null, null, null, "2+3", null, null, null, null, null, null, null, null, null, "1+4", null, null, null, "2+3", null, null, null, null, null, null],
     "Blaue Tonne/2": [null, "2+3", null, null, null, null, null, null, "1+4", null, null, null, null, null, null, "2+3", null, null, null, null, null, null, "1+4", null, null, null, null, null, null, "2+3", null],
     "Gelbe Tonne / Gelber Sack/2": [null, "1+2", null, "3+4", null, null, null, null, null, null, null, null, null, null, "1+2", null, "3+4", null, null, null, null, null, null, null, null, null, null, null, "1+2", null, "3+4"],
@@ -142,13 +142,14 @@ const cleanKalender = () => {
 
     for (const [abfuhrtyp, bezirk] of Object.entries(kalender[monat])) {
       let normalizedAbfuhrtyp = abfuhrtyp.lastIndexOf('/') > -1 ? abfuhrtyp.slice(0, abfuhrtyp.lastIndexOf('/')) : abfuhrtyp;
+      console.log(monat, abfuhrtyp);
       normalizedAbfuhrtyp = normalizedAbfuhrtyp.replace(' (Term. s. Seite 7)', '');
       cleanedKalender[monat][normalizedAbfuhrtyp] = [];
 
       bezirk.forEach((entry, i) => {
-        if (allowedValues.indexOf(entry) > -1) {
+        if (entry !== null && allowedValues.indexOf(entry.toString()) > -1) {
           const newCleanedKalenderPropEntry = {};
-          newCleanedKalenderPropEntry[i + 1] = entry.split('+');
+          newCleanedKalenderPropEntry[i + 1] = entry.toString().split('+');
           cleanedKalender[monat][normalizedAbfuhrtyp].push(newCleanedKalenderPropEntry);
         }
       });
@@ -158,6 +159,7 @@ const cleanKalender = () => {
       }
     }
   }
+  console.log(cleanedKalender);
   return cleanedKalender;
 };
 
