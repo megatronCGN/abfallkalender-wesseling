@@ -19,25 +19,28 @@ eleventyComputed:
           <input type="checkbox"
                  x-bind:checked="alleZeigen"
                  x-on:change="alleZeigen = !alleZeigen">
-          <span x-text="alleZeigen ? 'Vergangene Termine nicht anzeigen' : 'Vergangene Termine anzeigen'"></span>
+          <span>Vergangene Termine anzeigen</span>
         </label>
-        <template x-for="abfuhr in abfuhrTage">
-          <div>
-            <template x-for="[tag, bezirke] in Object.entries(abfuhr)">
-              <div x-data="{
+        <div>
+          <template x-for="abfuhr in abfuhrTage">
+            <div>
+              <template x-for="[tag, bezirke] in Object.entries(abfuhr)">
+                <div x-data="{
                       thisDate: queryDates.newDateFromDayAndMonth(tag, queryDates.dieserMonat())
                     }">
-                <div class="mt-1" :class="!((thisDate > new Date()) || alleZeigen) ? 'hidden' : ''">
-                  <time x-text="queryDates.formatDate(thisDate, 'dd.MM.')"></time>
-                  <span x-text="bezirke.length > 1 ? 'in Bezirken: ' : 'in Bezirk: '"></span>
-                  <template x-for="bezirk in bezirke">
-                    <span class="inline-block w-8 py-0.25 px-2 bg-gray-700 text-center text-white rounded" x-text="bezirk"></span>
-                  </template>
+                  <div class="mt-1" :class="!((thisDate > new Date()) || alleZeigen) ? 'hidden' : ''">
+                    <time x-text="queryDates.formatDate(thisDate, 'dd.MM.')"></time>
+                    <span x-text="bezirke.length > 1 ? 'in Bezirken: ' : 'in Bezirk: '"></span>
+                    <template x-for="bezirk in bezirke">
+                      <span class="inline-block w-8 py-0.25 px-2 bg-gray-700 text-center text-white rounded" x-text="bezirk"></span>
+                    </template>
+                  </div>
                 </div>
-              </div>
-            </template>
-          </div>
-        </template>
+              </template>
+            </div>
+          </template>
+          <div class="bg-bio-tonne-400"></div>
+        </div>
       </div>
     </div>
   </template>
