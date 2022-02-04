@@ -1,5 +1,16 @@
 module.exports = {
-  purge: ['./src/**/*.ejs', './src/**/*.md'],
+  purge: {
+    content: ['./src/**/*.ejs', './src/**/*.md'],
+    options: {
+      safelist: [
+        '/tonne/',
+        '/sperrgut/',
+        '/gruenschnitt/',
+        '/elektro/',
+        '/schadstoffe/',
+      ],
+    },
+  },
   theme: {
     fontSize: {
       xs: '0.75rem',
