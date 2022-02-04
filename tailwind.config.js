@@ -2,13 +2,15 @@ module.exports = {
   purge: {
     content: ['./src/**/*.ejs', './src/**/*.md'],
     options: {
-      safelist: [
-        '/tonne/',
-        '/sperrgut/',
-        '/gruenschnitt/',
-        '/elektro/',
-        '/schadstoffe/',
-      ],
+      safelist: {
+        greedy: [
+          '/tonne/',
+          '/sperrgut/',
+          '/gruenschnitt/',
+          '/elektro/',
+          '/schadstoffe/',
+        ],
+      },
     },
   },
   theme: {
